@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "practice-firebase-fb1be": {
+      "hosting": {
+        "alter-api-collab": [
+          "practice-firebase-fb1be"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "practice-firebase-fb1be"
+  }
+}
