@@ -1,23 +1,204 @@
-<h1 class="text-3xl font-extrabold text-center">
-  Home Component
-</h1>
-<div class="flex space-x-2 justify-center">
-  <button type="button" class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Button</button>
-</div>
+<main>
+    <header class="px-8 py-2 header" >
+      <div class="flex flex-row justify-between items-center">
+        <div class="logo flex flex-row items-center">
+          <img src="assets/alter-api.svg" alt="logo" width="40px">
+          <span class="mx-4 font-bold text-xl">Alter API</span>
+        </div>
+        <div class="nav">
+          <ul class="flex flex-row items-center">
+            <li class="text-slate-900	font-semibold mx-4 outline-none"><a [routerLink]='"."' [fragment]="'about'" title="About"> About </a></li>
+            <li class="text-slate-900	font-semibold mx-4 outline-none"><a [routerLink]="'.'" [fragment]="'features'" title="Features"> Features </a></li>
+            <li class="text-slate-900 font-semibold mx-4 outline-none"><a [routerLink]="'.'" [fragment]="'tech'" title="Tech"> Technology </a></li>
+            <li class="text-slate-900 font-semibold mx-4 outline-none"><a [routerLink]="'.'" [fragment]="'modules'" title="Modules"> Modules </a></li>
+            <li class="text-slate-900 font-semibold mx-4 outline-none"><a [routerLink]="'.'" [fragment]="'report'" title="Report"> Report </a></li>
+            <li><button class="btn-pm mx-4" >Sign In</button></li>
+            <li><button class="btn-wt ml-4" >Sign Up</button></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+    <section class="p-8 py-12 mt-20">
+      <div class="flex flex-row justify-between">
+        <div>
+          <p class="text-6xl font-bold leading-normal"><span class="tw text-pm" > </span> <br> APIs at ease.</p>
+          <button class="btn-pm my-8 text-xl" style="padding: 10px 30px;" >Get Started</button>
+        </div>
+        <div>
+          <img src="https://learning.postman.com/static/refresh-hero-image-a7b1fd3547fbfad79dab1ab65ba66688.svg" alt="AlterAPI">
+        </div>
+      </div>
 
-<div class="flex justify-center">
-  <div class="rounded-lg shadow-lg bg-white max-w-sm">
-    <a href="#!">
-      <img class="rounded-t-lg" src="https://mdbootstrap.com/img/new/standard/nature/184.jpg" alt=""/>
-    </a>
-    <div class="p-6">
-      <h5 class="text-gray-900 text-xl font-medium mb-2">Card title</h5>
-      <p class="text-gray-700 text-base mb-4">
-        Some quick example text to build on the card title and make up the bulk of the card's
-        content.
-      </p>
-      <button type="button" class=" inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Button</button>
+    </section>
+  <section class="px-8 py-5">
+
+    <div class="about mb-20" id="about" >
+      <p class="text-4xl font-bold">About</p>
+      <p class="text-lg">The Application is based on API development . <br> It provides the user a platform where they can build, test, document and collaborate with the team.</p>
     </div>
-  </div>
-</div>
 
+    <div class="features my-20" id="features">
+      <p class="text-4xl font-bold">Features</p>
+      <div class="f-grid gri my-10">
+        <div class="flex flex-col  p-4 f-card">
+          <img src="https://img.icons8.com/ios/100/ff5722/maintenance.png" width="50" height="50" alt="Simulating API" class="my-5">
+          <h2 class="" >Simulating APIs</h2>
+          <p class="leading-6 text-gray-500 text-sm">
+            Automate manual tests and Communicate the expected behavior of an API by simulating endpoints. Users can test API.
+          </p>
+        </div>
+        <div class="flex flex-col p-4 f-card">
+          <img src="https://img.icons8.com/ios/100/ff5722/save-as.png" width="50" height="50" alt="Saving Requests" class="my-5">
+          <h2 class="" >Saving Requests</h2>
+          <p class="leading-6 text-gray-500 text-sm">
+            Users can make their own account and have personalized session pacific to a user only.
+            <br>
+            Users can save API endpoints with their respective response requests.
+          </p>
+        </div>
+        <div class="flex flex-col p-4 f-card">
+          <img src="https://img.icons8.com/ios/50/ff5722/home-office--v1.png" width="50" height="50" alt="Worspace" class="my-5">
+          <h2 class="" >Creating Worspace</h2>
+          <p class="leading-6 text-gray-500 text-sm">
+            Logged in users can create different workspace for different projects and can invite the team members having the collaborative session.
+          </p>
+        </div>
+        <div class="flex flex-col p-4 f-card">
+          <img src="https://img.icons8.com/ios/100/ff5722/document-1.png" width="50" height="50" alt="Documenting API" class="my-5">
+          <h2 class="" >Documenting APIs</h2>
+          <p class="leading-6 text-gray-500 text-sm">
+            Users have power to create documentation out of their saved endpoints, reponses and many more things.
+          </p>
+        </div>
+        <div class="flex flex-col p-4 f-card">
+          <img src="https://img.icons8.com/ios/100/ff5722/collaborating-in-circle.png" width="50" height="50" alt="Collboration" class="my-5">
+          <h2 class="" >Collborating</h2>
+          <p class="leading-6 text-gray-500 text-sm">
+            Users can invite the team members having the collaborative session.
+            <br>
+            Users can share among other members and download the APIs for future use.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tech my-20" id="tech">
+      <p class="text-4xl font-bold">Technology Used</p>
+      <div>
+        <ul class="flex flex-row justify-center flex-wrap">
+          <li>
+            <img src="https://img.icons8.com/ios-filled/100/FC0723/angularjs.png"  alt="Angular"/>
+          </li>
+          <li>
+            <img src="https://img.icons8.com/ios-filled/100/1396EE/typescript.png" alt="Typescript" />
+          </li>
+          <li>
+            <img src="https://img.icons8.com/fluency/144/000000/node-js.png" alt="Node js" />
+          </li>
+          <li>
+            <img src="https://img.icons8.com/color/144/000000/mongodb.png" alt="MongoDB"  />
+          </li>
+          <li>
+            <img src="https://img.icons8.com/color/144/000000/firebase.png" alt="Firebase"  />
+          </li>
+          <li>
+            <img src="https://img.icons8.com/color/144/000000/figma--v1.png" alt="Figma"  />
+          </li>
+          <li>
+            <img src="https://img.icons8.com/color/144/000000/visual-studio-code-2019.png" alt="VS Code"   />
+          </li>
+          <li>
+            <img src="https://img.icons8.com/glyph-neue/128/000000/github.png" alt="GitHub"  />
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="modules my-20" id="modules">
+      <p class="text-4xl font-bold">Modules</p>
+      <div class="my-10">
+        <ul class="grid grid-cols-3 gap-20">
+          <li>
+            <div>
+              <h2 class="" >User</h2>
+              <img src="assets/user.webp" alt="User">
+              <p class="leading-7 text-gray-700 text-base">
+                Users is a module where they have accessibility to the whole application and its features after logging or signing up to the app.
+                Users have functionalities to create API requests by adding its endpoint, headers and body to it. In result it will show the response from that particular API , this helps in simulating the APIs locally.
+
+              </p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h2 class="" >Collaborative Workspace</h2>
+              <img src="assets/workspace.webp" alt="Workspace">
+              <p class="leading-7 text-gray-700 text-base">
+                Workspace Module , it is the most important module in terms of having a team where everyone can collaborate together and give inputs in the API development lifecycle.
+                <br>
+                A user having a workspace can invite other team members and can communicate with each other during the process.
+              </p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h2 class="" >Documenting</h2>
+              <img src="assets/documenting.jpg" alt="Documenting">
+              <p class="leading-7 text-gray-700 text-base">
+                The Documenting module is a very useful module. Everyone does not have knowledge of everything, developing API is not for everyone but we got you.
+                <br>
+                This module provides a feature for documenting your saved endpoints with requests and responses which can be shared among your peers and can be downloaded for future use.
+
+              </p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="report" id="report">
+      <!-- TODO : Change Synopsis to Report after creating the report pdf -->
+      <p class="text-4xl font-bold">Synopsis</p>
+      <div class="my-20 flex flex-row justify-center">
+        <!-- TODO : Link the Report PDF to download it -->
+        <button class="animate-bounce flex flex-row btn-pm text-xl font-bold align-middle" > <img src="https://img.icons8.com/ios-filled/100/000000/installing-updates--v1.png" class="mr-3" width="25" height="25"/>  Synopsis</button>
+      </div>
+    </div>
+
+  </section>
+  <footer class="footer bg-gray-200">
+    <div class="p-8">
+      <div class="flex flex-row justify-between align-middle">
+        <div>
+          <h3 class="font-bold">Topics</h3>
+          <ul>
+            <li><a [routerLink]='"."' [fragment]="'about'" >About</a> </li>
+            <li><a [routerLink]='"."' [fragment]="'features'" >Features</a> </li>
+            <li><a [routerLink]='"."' [fragment]="'tech'" >Technology</a> </li>
+            <li><a [routerLink]='"."' [fragment]="'module'" >Modules</a> </li>
+            <li><a [routerLink]='"."' [fragment]="'report'" >Report</a> </li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-bold">Socials</h3>
+          <ul>
+            <li><a href="https://github.com/deeps8/alter-api-collab" target="_blank" >Source Code</a> </li>
+            <li><a href="https://github.com/deeps8" target="_blank" >GitHub</a> </li>
+            <li><a href="https://www.linkedin.com/in/deepak-sharma-3560aa158/" target="_blank" >LinkedIn</a> </li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-bold">Contact Me</h3>
+          <div class="contact">
+            <input class="p-3" required  type="email" name="email" placeholder="name@abc.com" id="email">
+            <button class="px-5 py-3" type="submit">Send</button>
+          </div>
+        </div>
+        <div class="app text-center order-first">
+          <img class="m-10" src="assets/alter-api.svg" alt="logo" width="50" height="50">
+          <p>© 2022 Alter-API</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+</main>
