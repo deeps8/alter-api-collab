@@ -1,0 +1,125 @@
+<main class="w-8/12 m-auto">
+  <!-- <p class="text-xs text-gray-500 font-normal" >Home / Workspaces / Create</p> -->
+  <div class=" mb-3">
+    <h1 class="font-bold mb-1" >Create New Workspace</h1>
+  </div>
+  <div>
+    <form class="py-5">
+      <!-- <form class="py-5" (ngSubmit)="signUp(signupForm)" [formGroup]="signupForm"> -->
+
+      <div class="input-text">
+        <label for="name">Name</label>
+        <input  type="text" name="name"
+                required autocomplete="name"
+                id="name"
+                formControlName="name"
+                pattern="^[a-zA-Z0-9]+$"
+                minlength="8"
+                maxlength="20"
+        >
+                <!-- [ngClass]="{'border-red-700': signupForm.get('name')?.invalid && signupForm.get('name')?.touched}"
+                > -->
+        <!-- <span *ngIf=" inputFieldValidation(signupForm,'name','required') && signupForm.get('name')?.touched" >
+          required
+        </span>
+        <span *ngIf=" inputFieldValidation(signupForm,'name','pattern')" >
+          invalid
+        </span>
+        <span *ngIf=" inputFieldValidation(signupForm,'name','minlength') && !inputFieldValidation(signupForm,'name','pattern')" >
+          too short
+        </span> -->
+      </div>
+
+      <div class="input-text">
+        <label for="summary">Summary</label>
+        <textarea name="summary" id="summary"
+                  cols="" rows="2"
+                  required
+                  formControlName="summary"
+        ></textarea>
+                <!-- [ngClass]="{'border-red-700': signupForm.get('summary')?.invalid && signupForm.get('summary')?.touched}"
+                > -->
+        <!-- <span *ngIf=" inputFieldValidation(signupForm,'summary','required') && signupForm.get('summary')?.touched" >
+          required
+        </span>
+        <span *ngIf=" inputFieldValidation(signupForm,'summary','pattern')" >
+          invalid
+        </span> -->
+      </div>
+
+      <div class="input-text">
+        <label>Type of Workspace</label>
+        <div class="flex flex-row">
+          <div class="flex flex-row mr-20 items-center">
+            <input type="radio" name="wktype" class="w-14" value="personal" id="wktype-personal"/>
+            <label for="wktype-personal" class="m-0">Personal</label>
+          </div>
+          <div class="flex flex-row  items-center">
+            <input type="radio" name="wktype" class="w-14" value="team" checked id="wktype-team">
+            <label for="wktype-team" class="m-0" >Team</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="input-text">
+        <label for="members">Invite members</label>
+        <div class="">
+          <!-- <input
+            placeholder="New fruit..."
+            #fruitInput
+            [formControl]="fruitCtrl"
+            [matAutocomplete]="auto"
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            [matChipInputAddOnBlur]="addOnBlur"
+            (matChipInputTokenEnd)="add($event)"
+          /> -->
+        </div>
+      </div>
+
+      <div class="input-text">
+        <label for="password">Password</label>
+        <input  type="password" name="password"
+                required minlength="6"
+                autocomplete="new-password"
+                id="password"
+                formControlName="password"
+        >
+                <!-- [ngClass]="{'border-red-700': signupForm.get('password')?.invalid && signupForm.get('password')?.touched}"
+                > -->
+        <!-- <span *ngIf=" inputFieldValidation(signupForm,'password','required') && signupForm.get('password')?.touched" >
+          required
+        </span>
+        <span *ngIf=" inputFieldValidation(signupForm,'password','minlength')" >
+          too short
+        </span> -->
+      </div>
+
+      <div class="input-text">
+        <label for="confirmPassword">Confirm Password</label>
+        <input  type="password" name="password"
+                required minlength="6"
+                autocomplete="new-password"
+                id="confirmPassword"
+                formControlName="confirmPassword"
+        >
+                <!-- [ngClass]="{'border-red-700': signupForm.get('confirmPassword')?.invalid && signupForm.get('confirmPassword')?.touched}"
+                > -->
+        <!-- <span *ngIf=" inputFieldValidation(signupForm,'confirmPassword','required') && signupForm.get('confirmPassword')?.touched" >
+          required
+        </span>
+        <span *ngIf=" inputFieldValidation(signupForm,'confirmPassword','minlength')" >
+          too short
+        </span>
+        <span *ngIf=" passwordCheck(signupForm.value) && !inputFieldValidation(signupForm,'confirmPassword','minlength')" >
+          not matching
+        </span> -->
+      </div>
+
+      <button type="submit" class="btn-pm w-full" [disabled]="true">
+        Sign Up
+      </button>
+
+    </form>
+  </div>
+</main>

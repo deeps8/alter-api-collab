@@ -1,0 +1,43 @@
+.mat-menu-item{
+  height: unset !important;
+  padding: 5px 15px !important;
+  white-space: normal !important;
+  font-size: 13px !important;
+  line-height: 18px !important;
+}
+.mat-menu-panel{
+  max-width: 350px !important;
+}
+.material-icons{
+  font-size: 20px;
+}
+.mat-icon{
+  height: unset !important;
+  width: unset !important;
+}
+.cdk-overlay-pane{
+  margin-top: 10px !important;
+}
+.mat-elevation-z4{
+  box-shadow:0px 2px 3px -1px rgb(0 0 0 / 9%), 0px 2px 6px 0px rgb(0 0 0 / 10%), 0px 1px 10px 0px rgb(0 0 0 / 5%) !important;
+}
+.mat-accordion .mat-expansion-panel{
+  border-radius: 0 !important;
+}
+.mat-expansion-panel{
+  box-shadow: unset !important;
+  border-bottom: 1px solid #dddddd;
+}
+.mat-expansion-indicator::after{
+  border-color: gray;
+}
+.mat-expansion-panel-header{
+  height: unset !important;
+  padding: 10px !important;
+  .mat-expanded{
+    height: unset !important;
+  }
+}
+.mat-expansion-panel-body{
+  padding: 10px !important;
+}

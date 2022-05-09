@@ -1,0 +1,117 @@
+<main class="w-8/12 m-auto">
+      <p class="text-xs text-gray-500 font-normal" >Home / Workspaces</p>
+      <div class="mt-6 mb-3">
+        <h1 class="font-bold mb-1" >Your Workspaces</h1>
+        <p class="text-gray-700" >A directory of you workspaces</p>
+      </div>
+
+      <div class="flex flex-row justify-between sticky py-1 top-[49px] bg-white z-50">
+        <div>
+          <button class="btn-wt-sm font-normal flex flex-row align-middle border capitalize" [matMenuTriggerFor]="workspace">{{wsSelected}} Workspaces <mat-icon>keyboard_arrow_down</mat-icon> </button>
+          <mat-menu #workspace="matMenu">
+            <ul>
+              <ng-container *ngFor="let item of wsMenuList; index as i" >
+                <li mat-menu-item class="flex flex-row justify-between align-middle capitalize" (click)="selectMenuItem(item)" >
+                  <div class="w-8">
+                    <mat-icon class="m-0 text-sm" *ngIf="item===wsSelected" >check</mat-icon>
+                  </div>
+                  <div class="w-full">
+                    {{ item }} <span *ngIf="i===0">Workspace</span>
+                  </div>
+                </li>
+                <hr *ngIf="i===0" >
+              </ng-container>
+            </ul>
+          </mat-menu>
+        </div>
+        <div >
+          <button class="btn-wt-sm border font-medium bg-gray-100" [routerLink]="['workspace','create']" > + New </button>
+        </div>
+      </div>
+
+  <div class="workspaces mt-5">
+    <div>
+      <mat-accordion displayMode="flat">
+        <mat-expansion-panel >
+          <mat-expansion-panel-header>
+            <div class="flex flex-row w-full items-center"  >
+              <div class="avatar avatar-ws">
+                MW
+              </div>
+              <div class="px-2 hover:text-[#ff5722]" [routerLink]="['profile']">
+                <h4 class="font-medium text-base m-0" >My Workspace</h4>
+                <p class="text-xs text-gray-500 m-0" >Created by <span class="font-medium" >Deepak</span> on <span class="font-medium">2 May 2022</span> </p>
+              </div>
+            </div>
+          </mat-expansion-panel-header>
+          <div class="ws-desc text-[13px]">
+            <div class="flex flex-row justify-between">
+              <div>
+                <p>
+                  This workspace contains all your collections and environments, as well as any monitors, mock servers or integrations created on them.
+                </p>
+                <div class="ws-details">
+                  <ul class="grid grid-cols-3 gap-4">
+                    <li class="flex flex-col justify-between" >
+                      <h4>8</h4>
+                      <p>Members</p>
+                    </li>
+                    <li class="flex flex-col justify-between" >
+                      <h4>10</h4>
+                      <p>Collections</p>
+                    </li>
+                    <li class="flex flex-col justify-between" >
+                      <h4>50</h4>
+                      <p>APIs</p>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="ws-action self-end">
+                <ul>
+                  <li><button class="btn-wt-sm border" >See Documentation</button></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <div class="flex flex-row w-full items-center">
+              <div class="avatar avatar-ws">
+                HO
+              </div>
+              <div class="px-2">
+                <h4 class="font-medium text-base m-0" >Handy Workspace</h4>
+                <p class="text-xs text-gray-500 m-0" >Owner : <span>example@gmail.com</span> </p>
+              </div>
+            </div>
+          </mat-expansion-panel-header>
+          <div class="ws-desc">
+            <p>
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae magnam placeat aut! Placeat, perspiciatis voluptates vel voluptatibus dolorem temporibus reiciendis hic ullam, quibusdam cum libero corrupti accusantium odit suscipit accusamus!
+            </p>
+          </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <div class="flex flex-row w-full items-center">
+              <div class="avatar avatar-ws">
+                AX
+              </div>
+              <div class="px-2">
+                <h4 class="font-medium text-base m-0" >Axeno Workspace</h4>
+                <p class="text-xs text-gray-500 m-0" >Owner : <span>example@gmail.com</span> </p>
+              </div>
+            </div>
+          </mat-expansion-panel-header>
+          <div class="ws-desc">
+            <p>
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae magnam placeat aut! Placeat, perspiciatis voluptates vel voluptatibus dolorem temporibus reiciendis hic ullam, quibusdam cum libero corrupti accusantium odit suscipit accusamus!
+            </p>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </div>
+</main>

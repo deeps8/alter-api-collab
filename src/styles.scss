@@ -38,6 +38,8 @@ $alter-api-collab-theme: mat.define-light-theme((
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+@import './rmstyles';
+
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; scroll-behavior: smooth;}
@@ -53,17 +55,144 @@ body {
 }
 
 .text-pm{
-  color: #ff5722;
+  color: #ff5722 !important;
+}
+
+.bg-sc{
+  background-color: #3ff4d6;
+}
+.text-sc{
+  color: #097bee;
 }
 
 .btn-pm{
-  @apply bg-[#ff5722] px-3 py-2 rounded border-2 font-bold border-black;
+  white-space: nowrap;
+  @apply bg-[#ff5722] px-3 py-2 rounded font-bold
+          disabled:grayscale disabled:opacity-80 disabled:cursor-not-allowed
+          hover:bg-[#f63e03];
 }
 
 .btn-wt{
-  background-color: white;
-  @apply  px-3 py-2 rounded border-2 font-bold border-black;
+  background-color: #f0f0f0;
+  white-space: nowrap;
+  @apply  px-3 py-2 rounded font-medium
+          disabled:grayscale disabled:opacity-80 disabled:cursor-not-allowed
+          hover:bg-[#cecece];
 }
 .font-unset{
   font:unset !important;
+}
+
+.input-text{
+  position: relative;
+  padding-bottom: 20px;
+  margin-bottom: 10px;
+  label{
+    @apply  inline-block mb-2 text-gray-900 font-medium;
+  }
+  input,textarea{
+    resize: none;
+    @apply
+    block
+    w-full
+    px-3
+    py-1.5
+    text-base
+    font-normal
+    text-gray-700
+    bg-white bg-clip-padding
+    border border-solid border-gray-300
+    rounded
+    transition
+    ease-in-out
+    m-0
+    focus:text-gray-700 focus:bg-white focus:border-[#ff5722] focus:outline-none;
+  }
+  span{
+    position: absolute;
+    font-size: 12px;
+    text-transform: capitalize;
+    bottom: 0;
+    @apply text-red-700;
+  }
+}
+
+.avatar{
+  font-weight: 500;
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  border-radius: 100%;
+  white-space: nowrap;
+}
+
+
+.btn-pm-sm{
+  font-size: 12px;
+  padding: 5px 10px;
+  color: white;
+  white-space: nowrap;
+  @apply bg-[#ff5722] rounded font-medium
+          disabled:grayscale disabled:opacity-80 disabled:cursor-not-allowed
+          hover:bg-[#f63e03];
+}
+
+.btn-wt-sm{
+  font-size: 12px;
+  padding: 5px 10px;
+  white-space: nowrap;
+  @apply  rounded font-medium
+          disabled:grayscale disabled:opacity-80 disabled:cursor-not-allowed
+          hover:bg-[#eae9e9];
+}
+
+.btn-sc-sm{
+  font-size: 12px;
+  padding: 5px 10px;
+  color: white;
+  white-space: nowrap;
+  @apply bg-[#097bee] rounded font-medium
+          disabled:grayscale disabled:opacity-80 disabled:cursor-not-allowed
+          hover:bg-[#075aac];
+}
+
+.h-30{
+  height: 30px;
+}
+.avatar-ws{
+  width: 35px;
+  height: 35px;
+  font-size: 12px;
+  border-radius: 2px;
+  background-color: #09eeb12e;
+  color: black;
+}
+
+.workspaces{
+  .ws-desc{
+    .ws-details{
+      ul li {
+        border-radius: 5px;
+        cursor: pointer;
+        padding: 10px;
+        h4{
+          margin: 0;
+          font-weight: 500;
+        }
+        p{
+          margin: 0;
+        }
+      }
+      ul li:hover{
+        background-color: #f0f0f0;
+      }
+    }
+    .ws-action{
+      padding: 10px;
+    }
+  }
 }
