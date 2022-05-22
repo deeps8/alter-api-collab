@@ -1,0 +1,106 @@
+<section class="wk-section">
+    <div class="nav-tree">
+        <div class="nav-head">
+            <div class="wk-name flex justify-between">
+                <p>Workspace Name</p>
+
+                <div class="flex flex-row gap-2">
+                    <div class="search-action">
+                        <button class="btn-wt-sm leading-none p-1"
+                                matTooltipClass="tooltip"
+                                (click)="addTab('23123')"
+                                matTooltip="Add New Collection" >
+                            <mat-icon class="rotate-45">close</mat-icon>
+                        </button>
+                    </div>
+    
+                    <button class="btn-wt-sm leading-none px-1 py-0" 
+                            matTooltipClass="tooltip"
+                            matTooltip="View More Action"
+                            [matMenuTriggerFor]="wkAction" >
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #wkAction xPosition="before">
+                        <ul>
+                            <li mat-menu-item>Add Collection</li>
+                            <li mat-menu-item>Add Request</li>
+                            <li mat-menu-item>Settings</li>
+                        </ul>
+                    </mat-menu>
+                </div>
+            </div>
+            <div class="coll-list">
+                <div class="coll-tree">
+                    <div class="tree">
+                        <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+                            <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding >
+                                <button class="tree-btn" disabled >
+                                    {{node.name}}
+                                </button>
+                                <button class="btn-wt-sm leading-none p-1" 
+                                        matTooltipClass="tooltip"
+                                        matTooltip="View More Action"
+                                        [id]="node.id"
+                                        (click)="focusColl(node.id)"
+                                        [matMenuTriggerRestoreFocus]="true"
+                                        [matMenuTriggerFor]="wkAction" >
+                                    <mat-icon>more_vert</mat-icon>
+                                </button>
+                                <mat-menu #wkAction xPosition="before">
+                                    <ul>
+                                        <li mat-menu-item>Rename</li>
+                                        <li mat-menu-item>Delete</li>
+                                    </ul>
+                                </mat-menu>
+                            </mat-tree-node>
+
+                            <mat-tree-node *matTreeNodeDef="let node;when: hasChild" style="padding-left: unset;" >
+                                <button class="tree-btn" matTreeNodeToggle [attr.aria-label]="'Toggle '+ node.name"  >
+                                    <mat-icon class="mat-icon-rtl-mirror ml-2">
+                                        {{treeControl.isExpanded(node)?'expand_more':'chevron_right'}}
+                                    </mat-icon>
+                                    {{node.name}}
+                                </button>
+                                <button class="btn-wt-sm leading-none p-1" 
+                                        matTooltipClass="tooltip"
+                                        matTooltip="View More Action"
+                                        [id]="node.id"
+                                        (click)="focusColl(node.id)"
+                                        [matMenuTriggerRestoreFocus]="true"
+                                        [matMenuTriggerFor]="wkAction" >
+                                    <mat-icon>more_vert</mat-icon>
+                                </button>
+                                <mat-menu #wkAction xPosition="before">
+                                    <ul>
+                                        <li mat-menu-item>Add Request</li>
+                                        <li mat-menu-item>View Documentation</li>
+                                        <li mat-menu-item>Rename</li>
+                                        <li mat-menu-item>Delete</li>
+                                    </ul>
+                                </mat-menu>
+                            </mat-tree-node>
+
+                        </mat-tree>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="nav-outlet">
+        <div class="tab-list">
+            <mat-tab-group  animationDuration="10ms"
+                            [selectedIndex]="selectedIdx" 
+                            (selectedTabChange)="onTabChanged($event)">
+            <mat-tab *ngFor="let tab of wkTabs; let index = index">
+                <ng-template mat-tab-label>
+                    <p>Login User {{tab.id}}</p>
+                    <mat-icon (click)="removeTab(index)" >close</mat-icon>
+                </ng-template>
+                <div class="p-4">
+                    Contents for {{tab.name}} {{tab.id}} tab
+                </div>
+            </mat-tab>
+            </mat-tab-group>
+        </div>
+    </div>
+</section>

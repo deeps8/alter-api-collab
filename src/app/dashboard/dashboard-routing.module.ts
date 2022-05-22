@@ -4,7 +4,11 @@ import { DashboardComponent } from './dashboard.component';
 import { MainComponent } from './main/main.component';
 import { ProfileComponent } from './profile/profile.component';
 import { WkCreateComponent } from './wk-create/wk-create.component';
-// import { WorkspaceComponent } from './workspace/workspace.component';
+import { AngularFireAuthGuard, redirectLoggedInTo, redirectUnauthorizedTo } from '@angular/fire/compat/auth-guard';
+
+const unauthorized = ()=> redirectUnauthorizedTo(['auth/signin']);
+const authorized = ()=> redirectLoggedInTo(['dashboard']);
+
 
 const routes: Routes = [
   {
@@ -22,7 +26,13 @@ const routes: Routes = [
       {
         path:'profile',
         component: ProfileComponent
-      }
+      },
+      {
+        path:'workspace',
+        loadChildren: ()=> import('../workspace/workspace.module').then(m=>m.WorkspaceModule),
+        canActivate:[AngularFireAuthGuard],
+        data:{authGuardPipe: unauthorized }
+      },
     ]
   }
 ];

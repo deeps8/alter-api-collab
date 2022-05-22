@@ -67,7 +67,7 @@ body {
 
 .btn-pm{
   white-space: nowrap;
-  @apply bg-[#ff5722] px-3 py-2 rounded font-bold
+  @apply bg-[#ff5722] px-3 py-2 rounded text-white
           disabled:grayscale disabled:opacity-80 disabled:cursor-not-allowed
           hover:bg-[#f63e03];
 }
@@ -92,6 +92,7 @@ body {
   }
   input,textarea{
     resize: none;
+    margin: 0 !important;
     @apply
     block
     w-full
@@ -105,8 +106,12 @@ body {
     rounded
     transition
     ease-in-out
-    m-0
     focus:text-gray-700 focus:bg-white focus:border-[#ff5722] focus:outline-none;
+  }
+  input[name=invites]{
+    width: 100% !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
   }
   span{
     position: absolute;
@@ -114,6 +119,25 @@ body {
     text-transform: capitalize;
     bottom: 0;
     @apply text-red-700;
+  }
+  .chips-list{
+    height: 100px !important;
+    overflow: auto;
+    @apply block
+    px-3
+    py-1.5
+    text-base
+    font-normal
+    text-gray-700
+    bg-white bg-clip-padding
+    border border-solid border-gray-300
+    rounded
+    transition
+    ease-in-out
+    focus:text-gray-700 focus:bg-white focus:border-[#ff5722] focus:outline-none; 
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-top: 0 !important;
   }
 }
 
@@ -142,12 +166,13 @@ body {
 }
 
 .btn-wt-sm{
+  z-index: 10;
   font-size: 12px;
   padding: 5px 10px;
   white-space: nowrap;
   @apply  rounded font-medium
           disabled:grayscale disabled:opacity-80 disabled:cursor-not-allowed
-          hover:bg-[#eae9e9];
+          hover:bg-[#eae9e9] focus:bg-[#eae9e9] focus-within:bg-[#eae9e9];
 }
 
 .btn-sc-sm{
@@ -160,6 +185,15 @@ body {
           hover:bg-[#075aac];
 }
 
+.tree-btn{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  width: 90%;
+  cursor: pointer;
+}
+
 .h-30{
   height: 30px;
 }
@@ -170,6 +204,13 @@ body {
   border-radius: 2px;
   background-color: #09eeb12e;
   color: black;
+}
+
+.tooltip{
+  padding: 3px 0;
+  background-color: #333;
+  font-family: inherit;
+  letter-spacing: 0.5px;
 }
 
 .workspaces{
@@ -194,5 +235,47 @@ body {
     .ws-action{
       padding: 10px;
     }
+  }
+}
+
+.wk-section{
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  .nav-tree{
+    grid-column: 1 /span 2;
+    @apply border-gray-200 border-r ;
+    .nav-head{
+      .wk-name{
+        align-items: center;
+        padding: 8px 10px;
+        @apply border-gray-200 border-b ;
+        p{
+          cursor: pointer;
+          font-size: small;
+          font-weight: 500;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          margin: 0;
+          padding: 5px 10px;
+        }
+        .search-action{
+          button{
+            align-self:flex-end;
+            margin-left: auto;
+            mat-icon{
+              font-size: 18px;
+            }
+          }
+        }
+      }
+      .coll-list{
+        margin-top: 10px;
+      }
+    }
+  }
+  .nav-outlet{
+    grid-column: 3 /span 9;
   }
 }

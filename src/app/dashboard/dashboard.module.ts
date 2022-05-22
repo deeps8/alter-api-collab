@@ -10,8 +10,11 @@ import { MainComponent } from './main/main.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { WkCreateComponent } from './wk-create/wk-create.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -28,6 +31,10 @@ import { WkCreateComponent } from './wk-create/wk-create.component';
     MatMenuModule,
     MatIconModule,
     MatExpansionModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule,
+    MatChipsModule,
   ]
 })
 export class DashboardModule { }

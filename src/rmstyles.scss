@@ -41,3 +41,111 @@
 .mat-expansion-panel-body{
   padding: 10px !important;
 }
+.pnlClass{
+  margin: 0 !important;
+}
+.mat-tree-node{
+  min-height: unset !important;
+  justify-content: space-between;
+  padding: 5px 10px;
+  flex: unset !important;
+  position: relative;
+  .tree-btn{
+    padding: 2px 0;
+  }
+  .btn-wt-sm{
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
+    display: none;
+    &:focus-within,&:target{
+      display: block;
+    }
+  }
+  &:hover{
+    background-color: #f7f5f5;
+  }
+  &:focus > .btn-wt-sm, &:hover > .btn-wt-sm{
+    display: block;
+  }
+  &:focus {
+    background-color: #f7f5f5;
+  }
+  .mat-icon{
+    font-size: 18px !important;
+  }
+}
+
+.mat-tab-nav-bar, .mat-tab-header{
+  border: unset !important;
+}
+
+.mat-tab-body-wrapper{
+  border-top: 1px solid #e6e8eb;
+}
+
+.mat-tab-label{
+  height: 46px !important;
+  width: 175px !important;
+  justify-content: flex-start !important;
+  padding: 0 5px 0 15px !important;
+  // opacity: 1 !important;
+  color: black !important;
+  .mat-tab-label-content{
+    justify-content: space-between !important;
+    width: 100%;
+    gap: 10px;
+    p{
+      display: inline-block;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      margin: 0;
+      font-size: 12px;
+      font-weight: 400;
+    }
+    .mat-icon{
+      position: relative;
+      z-index: 10;
+      display: none;
+      font-size: 12px;
+      padding: 5px;
+      border-radius: 2px;
+      &:hover{
+        background: #e0e0e0;
+        font-weight: 600;
+      }
+    }
+    &:hover > .mat-icon {
+      display: block;
+    }
+  }
+}
+
+.mat-ink-bar{
+  top: 0 !important;
+  bottom: unset !important;
+  background-color: #ff5722 !important;
+  transition: none !important;
+
+}
+
+.mat-tab-label-active{
+  
+  &:not(:first-child){
+    border-left: 1px solid #e0e0e0;
+  }
+  border-right: 1px solid #e0e0e0;
+  background-color: #e0e0e069;
+  opacity: 1 !important;
+  &::after{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+  }
+  .mat-tab-label-content p{
+    font-weight: 500 !important;
+  }
+}
