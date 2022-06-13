@@ -1,0 +1,187 @@
+<main class="" >
+  <header class=" sticky top-0 bg-white py-3">
+    <div class="flex flex-row justify-between md:w-2/4 sm:w-full mx-auto">
+      <div class="logo flex flex-row items-center cursor-pointer" [routerLink]="['/home']" >
+        <img src="assets/alter-api.svg" alt="logo" width="40px">
+      </div>
+      <div class="ml-auto">
+        <ul class="flex flex-row items-center ">
+          <li class="text-slate-900	font-semibold mx-4 outline-none"> <a [routerLink]="['/home']">Home</a></li>
+          <li *ngIf="authType === 'signin'" ><a [routerLink]="['/auth','signup']" ><button class="btn-wt ml-4" >Sign Up</button></a></li>
+          <li *ngIf="authType === 'signup'" ><a [routerLink]="['/auth','signin']" ><button class="btn-pm ml-4" >Sign In</button></a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <section class="md:w-2/4 sm:w-full mx-auto my-10">
+    <div class="flex flex-row justify-center rounded-lg" style="box-shadow: 0px 0px 50px #ddd;">
+      <div class="side-content w-6/12 p-8 bg-sc rounded-l-lg ">
+        <h1 class="text-5xl font-bold" >Alter API</h1>
+        <h2 class="text-2xl font-semibold text-pm">Lets Get Started</h2>
+        <div class="my-10" >
+          <img src="assets/started.svg" alt="Started" width="300">
+        </div>
+      </div>
+
+      <div class="w-6/12 p-8">
+          <!-- sign in -->
+          <ng-container *ngIf="authType === 'signin';else signup" >
+            <div class="">
+              <h2 class="font-bold text-pm text-center" >Sign In</h2>
+              <div class="flex flex-row justify-center">
+                <p class="text-red-900 py-1 px-2 bg-red-400 w-full text-center rounded" *ngIf="authSV.errorMsgLog" >{{authSV.errorMsgLog}}</p>
+                <loading-spinner [dim]="40" *ngIf="authSV.loadingStatus" ></loading-spinner>
+              </div>
+              <form class="py-5" (ngSubmit)="signIn(signinForm)" [formGroup]="signinForm">
+
+                <div class="input-text">
+                  <label for="email">Email</label>
+                  <input  type="email" name="email"
+                          required autocomplete="email"
+                          id="email"
+                          formControlName="email"
+                          [ngClass]="{'border-red-700': signinForm.get('email')?.invalid && signinForm.get('email')?.touched}"
+                          pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+                          >
+                  <span *ngIf=" inputFieldValidation(signinForm,'email','required') && signinForm.get('email')?.touched" >
+                    required
+                  </span>
+                  <span *ngIf=" inputFieldValidation(signinForm,'email','pattern')" >
+                    invalid
+                  </span>
+                </div>
+
+                <div class="input-text">
+                  <label for="password">Password </label>
+                  <input  type="password" name="password"
+                          required minlength="6"
+                          autocomplete="new-password"
+                          id="password"
+                          formControlName="password"
+                          [ngClass]="{'border-red-700': signinForm.get('password')?.invalid && signinForm.get('password')?.touched}"
+                          >
+                  <span *ngIf=" inputFieldValidation(signinForm,'password','required') && signinForm.get('password')?.touched" >
+                    required
+                  </span>
+                  <span *ngIf=" inputFieldValidation(signinForm,'password','minlength')" >
+                    too short
+                  </span>
+                </div>
+
+                <button type="submit" class="btn-pm w-full" [disabled]="!signinForm.valid">
+                  Sign In
+                </button>
+
+              </form>
+              <p class="text-center text-sm text-gray-700 my-4" >Not have an account ? <a class="font-medium text-blue-700" [routerLink]="['/auth','signup']" >Sign Up</a> </p>
+              <!-- <p class="if" >Already have an account ? <a [routerLink]="['/auth','login']" >Login</a> </p> -->
+              <hr class="my-5">
+              <div class="">
+                <button class="btn-wt font-medium flex flex-row w-full justify-center items-center" > <img src="https://img.icons8.com/color/50/000000/google-logo.png" width="20" class="mx-3"/> Continue with  Google </button>
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-template #signup>
+            <div class="">
+              <h2 class="text-pm font-bold text-center" >Sign Up</h2>
+              <div class="flex flex-row justify-center">
+                <p class="text-red-900 py-1 px-2 bg-red-400 w-full text-center rounded" *ngIf="authSV.errorMsgReg" >{{authSV.errorMsgReg}}</p>
+                <loading-spinner [dim]="40" *ngIf="authSV.loadingStatus" ></loading-spinner>
+              </div>
+                <form class="py-5" (ngSubmit)="signUp(signupForm)" [formGroup]="signupForm">
+
+                  <div class="input-text">
+                    <label for="username">Username</label>
+                    <input  type="text" name="username"
+                            required autocomplete="username"
+                            id="username"
+                            formControlName="username"
+                            pattern="^[a-zA-Z0-9]+$"
+                            minlength="8"
+                            maxlength="20"
+                            [ngClass]="{'border-red-700': signupForm.get('username')?.invalid && signupForm.get('username')?.touched}"
+                            >
+                    <span *ngIf=" inputFieldValidation(signupForm,'username','required') && signupForm.get('username')?.touched" >
+                      required
+                    </span>
+                    <span *ngIf=" inputFieldValidation(signupForm,'username','pattern')" >
+                      invalid
+                    </span>
+                    <span *ngIf=" inputFieldValidation(signupForm,'username','minlength') && !inputFieldValidation(signupForm,'username','pattern')" >
+                      too short
+                    </span>
+                  </div>
+
+                  <div class="input-text">
+                    <label for="email">Email</label>
+                    <input  type="email" name="email"
+                            required autocomplete="email"
+                            id="email"
+                            formControlName="email"
+                            [ngClass]="{'border-red-700': signupForm.get('email')?.invalid && signupForm.get('email')?.touched}"
+                            pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+                            >
+                    <span *ngIf=" inputFieldValidation(signupForm,'email','required') && signupForm.get('email')?.touched" >
+                      required
+                    </span>
+                    <span *ngIf=" inputFieldValidation(signupForm,'email','pattern')" >
+                      invalid
+                    </span>
+                  </div>
+
+                  <div class="input-text">
+                    <label for="password">Password</label>
+                    <input  type="password" name="password"
+                            required minlength="6"
+                            autocomplete="new-password"
+                            id="password"
+                            formControlName="password"
+                            [ngClass]="{'border-red-700': signupForm.get('password')?.invalid && signupForm.get('password')?.touched}"
+                            >
+                    <span *ngIf=" inputFieldValidation(signupForm,'password','required') && signupForm.get('password')?.touched" >
+                      required
+                    </span>
+                    <span *ngIf=" inputFieldValidation(signupForm,'password','minlength')" >
+                      too short
+                    </span>
+                  </div>
+
+                  <div class="input-text">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input  type="password" name="password"
+                            required minlength="6"
+                            autocomplete="new-password"
+                            id="confirmPassword"
+                            formControlName="confirmPassword"
+                            [ngClass]="{'border-red-700': signupForm.get('confirmPassword')?.invalid && signupForm.get('confirmPassword')?.touched}"
+                            >
+                    <span *ngIf=" inputFieldValidation(signupForm,'confirmPassword','required') && signupForm.get('confirmPassword')?.touched" >
+                      required
+                    </span>
+                    <span *ngIf=" inputFieldValidation(signupForm,'confirmPassword','minlength')" >
+                      too short
+                    </span>
+                    <span *ngIf=" passwordCheck(signupForm.value) && !inputFieldValidation(signupForm,'confirmPassword','minlength')" >
+                      not matching
+                    </span>
+                  </div>
+
+                  <button type="submit" class="btn-pm w-full" [disabled]="!signupForm.valid">
+                    Sign Up
+                  </button>
+
+                </form>
+                <p class="text-center text-sm text-gray-700 my-4" >Already have an account ? <a class="font-medium text-blue-700" [routerLink]="['/auth','signin']" >Sign In</a> </p>
+                <hr class="my-5">
+                <div class="">
+                  <button class="btn-wt font-medium flex flex-row w-full justify-center items-center" > <img src="https://img.icons8.com/color/50/000000/google-logo.png" width="20" class="mx-3"/> Continue with  Google </button>
+                </div>
+              </div>
+          </ng-template>
+      </div>
+    </div>
+  </section>
+
+</main>

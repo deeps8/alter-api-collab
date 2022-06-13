@@ -1,0 +1,161 @@
+<div class="req-tab" *ngIf="req">
+    <div class="tab-head">
+        <div class="tab-title mb-3 ">
+            <p>{{req.name}}</p>
+        </div>
+        <div class="tab-form">
+            <div class="tab-input my-5 relative">
+                <form (ngSubmit)="sendRequest()" [formGroup]="requestForm" >
+                    <div class="input-text flex flex-row gap-3">
+                        <select name="method" formControlName="method"  id="method" style="width: 150px;">
+                            <option value="GET">GET</option>
+                            <option value="POST">POST</option>
+                            <option value="PUT">PUT</option>
+                            <option value="DELETE">DELETE</option>
+                            <option value="PATCH">PATCH</option>
+                        </select>
+                        <input type="url" formControlName="url"  name="url" placeholder="http://localhost:4200/dashboard/workspace/">
+                        <button type="submit" [disabled]="!requestForm.valid" class="btn-pm w-40 text-lg">
+                            Send
+                        </button>
+                    </div>
+                </form>
+                <loading-spinner *ngIf="simulating"  [dim]="30" style="position: absolute;
+                bottom: -14px;
+                left: calc(50% - 30px);" ></loading-spinner>
+            </div>
+            <div class="options-tab">
+                <div class="tabs flex flex-row">
+                    <div class="req">
+                        <mat-tab-group animationDuration="10ms">
+                            <mat-tab>
+                                <ng-template mat-tab-label>
+                                    <p>Params</p>
+                                </ng-template>
+                                <div class="p-4 params">
+                                    <!-- query params tab -->
+                                    <div class="flex flex-row flex-1 gap-10">
+                                        <div class="w-full">
+                                            <div class=" input-text key-value-pair flex flex-col" *ngFor="let p of queryParams;let i = index" >
+                                                <div class="flex flex-row">
+                                                    <input class="key" type="text" placeholder="key" [(ngModel)]="p.key" [ngModelOptions]="{standalone:true}" [value]="p.key" >
+                                                    <input class="value" type="text" placeholder="value" [(ngModel)]="p.value" [ngModelOptions]="{standalone:true}" [value]="p.value">
+                                                    
+                                                    <button type="button" class="action-btn btn-red-outline flex" (click)="removeParams(i,queryParams)" >
+                                                        <mat-icon>close</mat-icon>
+                                                    </button>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+    
+                                        <div>
+                                            <button type="button" class="btn-sc-outline" (click)="addParams(queryParams)">Add Query Params</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-tab>
+                            <mat-tab>
+                                <ng-template mat-tab-label>
+                                    <p>Headers</p>
+                                </ng-template>
+                                <div class="p-4 params">
+                                    <div class="flex flex-row flex-1 gap-10">
+                                        <div class="w-full">
+                                            <div class=" input-text key-value-pair flex flex-col" *ngFor="let h of reqHeaders;let i = index" >
+                                                <div class="flex flex-row">
+                                                    <input class="key" type="text" placeholder="key" [(ngModel)]="h.key" [ngModelOptions]="{standalone:true}" [value]="h.key" >
+                                                    <input class="value" type="text" placeholder="value" [(ngModel)]="h.value" [ngModelOptions]="{standalone:true}" [value]="h.value">
+                                                    
+                                                    <button type="button" class="action-btn btn-red-outline flex" (click)="removeParams(i,reqHeaders)" >
+                                                        <mat-icon>close</mat-icon>
+                                                    </button>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+    
+                                        <div>
+                                            <button type="button" class="btn-sc-outline" (click)="addParams(reqHeaders)">Add Headers</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-tab>
+                            <mat-tab>
+                                <ng-template mat-tab-label>
+                                    <p>Body</p>
+                                </ng-template>
+                                <div class="p-4 body">
+                                    <div class="tab-pane fade " id="req-body" role="tabpanel" aria-labelledby="req-body-tab" >
+                                        <!-- monaco editor -->
+                                        <ngx-monaco-editor
+                                            #monacoEditor
+                                            class="textEditorContainer"
+                                            [options] = "editorOptions"
+                                            [(ngModel)]="reqData"
+                                            [ngModelOptions]="{standalone:true}"
+                                        >
+                                        </ngx-monaco-editor>
+                                      </div>
+                                </div>
+                            </mat-tab>
+                        </mat-tab-group>
+                    </div>
+                    <div class="res">
+                        <!-- <div class="p-2" *ngIf="true">
+                            <p>Response</p>
+                        </div> -->
+                        <div *ngIf="true" style="height: 100%;">
+                            <mat-tab-group animationDuration="10ms">
+                                <mat-tab>
+                                    <ng-template mat-tab-label>
+                                        <p>Body</p>
+                                    </ng-template>
+                                    <div class="p-4 body">
+                                        <div class="tab-pane fade " id="req-body" role="tabpanel" aria-labelledby="req-body-tab" >
+                                            <!-- monaco editor -->
+                                            <ngx-monaco-editor
+                                                #monacoEditor
+                                                class="textEditorContainer"
+                                                [options] = "resEditorOptions"
+                                                [(ngModel)]="resData"
+                                                [ngModelOptions]="{standalone:true}"
+                                            >
+                                            </ngx-monaco-editor>
+                                          </div>
+                                    </div>
+                                </mat-tab>
+                                <mat-tab>
+                                    <ng-template mat-tab-label>
+                                        <p>Headers</p>
+                                    </ng-template>
+                                    <div class="p-4 headers">
+                                        <ul>
+                                            <li>
+                                                <p class="font-medium bg-gray-50">Key</p>
+                                                <p class="font-medium bg-gray-50">Value</p>
+                                            </li>
+                                            <li *ngFor="let vk of resHeaders" >
+                                                <p>{{vk.key}}</p>
+                                                <p>{{vk.value}}</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </mat-tab>
+                                <mat-tab [disabled]="true" class="opacity-100">
+                                    <ng-template mat-tab-label >
+                                        <div class="text-green-800 flex flex-row gap-4" *ngIf="timeTaken">
+                                            <p class="font-medium"> {{status}} </p>
+                                            <p class="font-medium"> {{timeTaken}} </p>
+                                            <p class="font-medium"> {{resSize}} </p>
+                                        </div>
+                                    </ng-template>
+                                </mat-tab>
+                            </mat-tab-group>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

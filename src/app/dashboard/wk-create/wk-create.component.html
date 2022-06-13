@@ -1,0 +1,123 @@
+<main class="w-5/12 m-auto py-5">
+  <!-- <p class="text-xs text-gray-500 font-normal" >Home / Workspaces / Create</p> -->
+  <div class=" mb-3">
+    <div class="flex flex-row gap-10 items-center">
+      <h1 class="font-bold mb-1" >Create New Workspace</h1>
+      <loading-spinner [dim]="30" *ngIf="load" ></loading-spinner>
+    </div>
+  </div>
+  <div>
+      <form class="py-5" (ngSubmit)="createWk(createWorkspace)" [formGroup]="createWorkspace">
+      <div class="input-text">
+        <label for="name">Name</label>
+        <input  type="text" name="name"
+                required autocomplete="name"
+                id="name"
+                formControlName="name"
+                pattern="^[a-zA-Z0-9-_ ]+$"
+                minlength="6"
+                maxlength="20"
+                [ngClass]="{'border-red-700': createWorkspace.get('name')?.invalid && createWorkspace.get('name')?.touched}"
+        >
+        <span *ngIf=" inputFieldValidation(createWorkspace,'name','required') && createWorkspace.get('name')?.touched" >
+          required
+        </span>
+        <span *ngIf=" inputFieldValidation(createWorkspace,'name','pattern')" >
+          invalid
+        </span>
+        <span *ngIf=" inputFieldValidation(createWorkspace,'name','minlength') && !inputFieldValidation(createWorkspace,'name','pattern')" >
+          too short
+        </span>
+      </div>
+
+      <div class="input-text">
+        <label for="summary">Summary</label>
+        <textarea name="summary" id="summary"
+                  cols="" rows="2"
+                  required
+                  minlength="6"
+                  formControlName="summary"
+                  [ngClass]="{'border-red-700': createWorkspace.get('summary')?.invalid && createWorkspace.get('summary')?.touched}"
+        ></textarea>
+        <span *ngIf=" inputFieldValidation(createWorkspace,'summary','required') && createWorkspace.get('summary')?.touched" >
+          required
+        </span>
+        <span *ngIf=" inputFieldValidation(createWorkspace,'summary','minlength') && !inputFieldValidation(createWorkspace,'summary','pattern')" >
+          too short
+        </span>
+      </div>
+
+      <div class="input-text">
+        <label>Type of Workspace</label>
+        <div class="flex flex-row">
+          <div class="flex flex-row mr-20 items-center">
+            <input type="radio" name="type" formControlName="type"   class="w-14" value="Personal" id="wktype-personal"/>
+            <label for="wktype-personal" class="m-0">Personal</label>
+          </div>
+          <div class="flex flex-row  items-center">
+            <input type="radio" name="type" formControlName="type" class="w-14" value="Team" checked id="wktype-team">
+            <label for="wktype-team" class="m-0" >Team</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="input-text" *ngIf="createWorkspace.value.type === 'Team'">
+        <label for="members">Invite Members <i class="text-gray-400 font-light pl-9"> ( use SPACE, COMMA, ENTER for adding the email )</i> </label>
+        <div class="invite-members">
+          <div>
+            <input
+              #inviteInput
+              name="invites"
+              placeholder="example@xyz.com"
+              formControlName="invites"
+              [matAutocomplete]="auto"
+              [matChipInputFor]="chipList"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              [matChipInputAddOnBlur]="false"
+              (matChipInputTokenEnd)="add($event)"
+            />
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+              <mat-option *ngFor="let f of userList | async" [value]="f.email">
+                {{ f.email }}
+              </mat-option>
+            </mat-autocomplete>
+            <div class="chips-list">
+              <mat-chip-list #chipList>
+                <mat-chip
+                  *ngFor="let us of users"
+                  [selectable]="true"
+                  [removable]="true"
+                  (removed)="remove(us.email)">
+                  {{us.email}}
+                  <mat-icon matChipRemove >cancel</mat-icon>
+                </mat-chip>
+              </mat-chip-list>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="input-text">
+        <label for="invites">Invite People</label>
+        <input  type="text" name="invites"
+                required 
+                id="invites"
+                formControlName="invites"
+        > -->
+                <!-- [ngClass]="{'border-red-700': createWorkspace.get('invites')?.invalid && createWorkspace.get('invites')?.touched}"
+                > -->
+        <!-- <span *ngIf=" inputFieldValidation(createWorkspace,'invites','required') && createWorkspace.get('invites')?.touched" >
+          required
+        </span>
+        <span *ngIf=" inputFieldValidation(createWorkspace,'invites','minlength')" >
+          too short
+        </span> -->
+      <!-- </div> -->
+
+      <button type="submit" class="btn-pm w-full" [disabled]="!createWorkspace.valid">
+        Create Workspace
+      </button>
+
+    </form>
+  </div>
+</main>

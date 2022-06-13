@@ -12,8 +12,8 @@
             <li class="text-slate-900 font-semibold mx-4 outline-none"><a [routerLink]="'.'" [fragment]="'tech'" title="Tech"> Technology </a></li>
             <li class="text-slate-900 font-semibold mx-4 outline-none"><a [routerLink]="'.'" [fragment]="'modules'" title="Modules"> Modules </a></li>
             <li class="text-slate-900 font-semibold mx-4 outline-none"><a [routerLink]="'.'" [fragment]="'report'" title="Report"> Report </a></li>
-            <li><button class="btn-pm mx-4" >Sign In</button></li>
-            <li><button class="btn-wt ml-4" >Sign Up</button></li>
+            <li><a [routerLink]="['/auth','signin']" ><button class="btn-pm mx-4"  >Sign In</button></a></li>
+            <li><a [routerLink]="['/auth','signup']" ><button class="btn-wt ml-4" >Sign Up</button></a></li>
           </ul>
         </div>
       </div>
@@ -22,7 +22,7 @@
       <div class="flex flex-row justify-between">
         <div>
           <p class="text-6xl font-bold leading-normal"><span class="tw text-pm" > </span> <br> APIs at ease.</p>
-          <button class="btn-pm my-8 text-xl" style="padding: 10px 30px;" >Get Started</button>
+          <button class="btn-pm my-8 text-xl" style="padding: 15px 30px;" >Get Started</button>
         </div>
         <div>
           <img src="https://learning.postman.com/static/refresh-hero-image-a7b1fd3547fbfad79dab1ab65ba66688.svg" alt="AlterAPI">

@@ -1,0 +1,71 @@
+.doc{
+    padding: 10px;
+    h1,h2,h3,h4,h5,h6{
+        margin: 0;
+        font-weight: 500 !important;
+    }
+    .summary{
+        opacity: 0.8;
+    }
+    .doc-head{
+        border-bottom: 1px solid #ddd;            
+    }
+
+    .doc-col{
+        position: relative;
+        margin-bottom: 20px;
+        .doc-col-head{
+            width: 100%;
+            background-color: white;
+            // border-bottom: 1px solid #ddd;
+            margin-bottom: 10px;
+            position: sticky;
+            top: 48px;
+            z-index: 100;
+            padding: 10px 0;
+        }
+        .doc-flex{
+            padding-bottom: 50px;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 50px;
+            .doc-req{
+                width: 85%;
+                // padding: 0 5px;
+                .doc-req-container,.doc-res-container{
+                    width: 80%;
+                }
+            }
+            .req-swap{
+                width: 15%;
+                .req-swtab{
+                    position: sticky;
+                    top: 150px;
+                }
+            }
+
+            .query-params{
+                input{
+                    padding: 8px 0px;
+                    width: 100%;
+                    font-size: 13px;
+                    margin-bottom: 5px;
+                    border-bottom: 1px solid #f1f1f1;
+                    background-color: white !important;
+                    &:first-child{
+                        font-weight: 500;
+                    }
+                }
+            }
+            .doc-sec{
+                margin: 20px 0;
+                h3,h4{
+                    margin-bottom: 10px;
+                }
+            }
+        }
+    }
+}
+
+input:read-only{
+    background-color: #f1f1f1;
+}

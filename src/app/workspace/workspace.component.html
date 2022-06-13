@@ -1,0 +1,124 @@
+<section class="wk-section" *ngIf="currWorkspace | async as wk;else loadwk">
+    <div class="nav-tree">
+        <div class="nav-head">
+            <div class="wk-name flex justify-between">
+                <p class="text-pm">{{wk.name}}</p>
+
+                <div class="flex flex-row gap-2">
+                    <div class="search-action">
+                        <button class="btn-wt-sm leading-none p-1"
+                                matTooltipClass="tooltip"
+                                (click)="openDialog('both','',wk.workId)"
+                                matTooltip="Add New Collection" >
+                            <mat-icon class="rotate-45">close</mat-icon>
+                        </button>
+                    </div>
+    
+                    <button class="btn-wt-sm leading-none px-1 py-0" 
+                            matTooltipClass="tooltip"
+                            matTooltip="View More Action"
+                            [matMenuTriggerFor]="wkAction" >
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #wkAction xPosition="before">
+                        <ul>
+                            <li mat-menu-item (click)="openDialog('both','',wk.workId)" >Add Collection</li>
+                            <li mat-menu-item [routerLink]="['./documentation',wk.workId]" >View Documentation</li>
+                            <li mat-menu-item>Settings</li>
+                        </ul>
+                    </mat-menu>
+                </div>
+            </div>
+            <div class="coll-list">
+                <div class="coll-tree">
+                    <div class="tree">
+                        <div *ngIf="dataSource.data.length===0" style="padding:10px 18px;">
+                            <p >No Collection Available, <b>ADD</b> new Collections.</p>
+                            <button class="btn-wt" (click)="openDialog('both','',wk.workId)" > Add Collection </button>
+                        </div>
+                        <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+                            <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding [ngClass]="{'req-active': node.id === activeReqId}" >
+                                <button  class="tree-btn" (click)="openReq(node.id)">
+                                    {{node.name}}
+                                </button>
+                                <button class="btn-wt-sm leading-none p-1" 
+                                        matTooltipClass="tooltip"
+                                        matTooltip="View More Action"
+                                        [id]="node.id"
+                                        (click)="focusColl(node.id)"
+                                        [matMenuTriggerRestoreFocus]="true"
+                                        [matMenuTriggerFor]="wkAction" >
+                                    <mat-icon>more_vert</mat-icon>
+                                </button>
+                                <mat-menu #wkAction xPosition="before">
+                                    <ul>
+                                        <li mat-menu-item>Rename</li>
+                                        <li mat-menu-item>Delete</li>
+                                    </ul>
+                                </mat-menu>
+                            </mat-tree-node>
+
+                            <mat-tree-node *matTreeNodeDef="let node;when: hasChild" style="padding-left: unset;" >
+                                <button class="tree-btn" matTreeNodeToggle [attr.aria-label]="'Toggle '+ node.name"  >
+                                    <mat-icon class="mat-icon-rtl-mirror ml-2">
+                                        {{treeControl.isExpanded(node)?'expand_more':'chevron_right'}}
+                                    </mat-icon>
+                                    {{node.name}}
+                                </button>
+                                <button class="btn-wt-sm leading-none p-1" 
+                                        matTooltipClass="tooltip"
+                                        matTooltip="View More Action"
+                                        [id]="node.id"
+                                        (click)="focusColl(node.id)"
+                                        [matMenuTriggerRestoreFocus]="true"
+                                        [matMenuTriggerFor]="wkAction" >
+                                    <mat-icon>more_vert</mat-icon>
+                                </button>
+                                <mat-menu #wkAction xPosition="before">
+                                    <ul>
+                                        <li mat-menu-item (click)="openDialog('req',node.id,wk.workId)">Add Request</li>
+                                        <li mat-menu-item [routerLink]="['documentation',node.id]">View Documentation</li>
+                                        <li mat-menu-item>Rename</li>
+                                        <li mat-menu-item>Delete</li>
+                                    </ul>
+                                </mat-menu>
+                            </mat-tree-node>
+
+                        </mat-tree>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="nav-outlet">
+        <div class="tab-list request-tabs h-full">
+            <div class="flex h-full items-center text-center place-content-center" *ngIf="activeReqId==='';else tabs">
+                <div >
+                    <h2>Welcome to the <span class="text-pm" > {{wk.name}} </span></h2>
+                    <p>Select a request to test or create new.</p>
+                </div>
+            </div>
+            <ng-template #tabs>
+                <mat-tab-group class="h-full"  animationDuration="0ms"
+                                [selectedIndex]="selectedIdx" 
+                                (selectedTabChange)="onTabChanged($event)">
+                <mat-tab *ngFor="let tab of wkTabs; let index = index">
+                    <ng-template mat-tab-label>
+                        <p>{{tab.req.name}}</p>
+                        <mat-icon (click)="removeTab(index)" >close</mat-icon>
+                    </ng-template>
+                    <div class="p-4 h-full">
+                        <!-- Contents for {{tab.name}} {{tab.id}} tab -->
+                        <app-wk-tab [req]="tab.req" ></app-wk-tab>
+                    </div>
+                </mat-tab>
+                </mat-tab-group>
+            </ng-template>
+        </div>
+    </div>
+</section>
+<ng-template #loadwk>
+    <div class="grid w-full h-full place-content-center">
+        <loading-spinner [dim]="50" ></loading-spinner>
+    </div>
+</ng-template>

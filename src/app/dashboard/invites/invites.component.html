@@ -1,0 +1,85 @@
+<main class="w-9/12 m-auto py-5 h-full">
+    <p class="text-xs text-gray-500 font-normal" >Home / Invites</p>
+    <div class="mt-6 mb-3">
+      <h1 class="font-bold mb-1" >Invites</h1>
+      <p class="text-gray-700" >View all invites of different workspaces</p>
+    </div>
+    <div class="" *ngIf="allWorks | async as wks;else loading">
+        <div class="invites">
+            <div class="wk-list">
+                <h3 class="text-bold">Workspace List</h3>
+                <ul>
+                    <li *ngFor="let wk of wks" (click)="openWkInvite(wk)" >
+                        <div [ngClass]="{'text-pm': selectedWk === wk.workId}">
+                            <p>{{wk.name}}</p>
+                            <span>{{wk.createdOn | date}}</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="invite-view">
+                <ng-container *ngIf="selectedWk === undefined;else initbtn" >
+                    <h3>No Workspace Selected</h3>
+                    <div>
+                        <button class="btn-sc-sm" (click)="openDialog()" >Invite</button>
+                    </div>
+                </ng-container>
+                <ng-template #initbtn >
+                <div class="invite-head">
+                        <h3>Invite List of {{workName}}</h3>
+                        <div>
+                            <button class="btn-sc-sm" (click)="openDialog()" >Invite</button>
+                        </div>
+                </div>
+                <div class="invite-tab">
+                    <div class="invite-radio">
+                        <div class="input-text p-0">
+                            <input type="radio" name="invite" checked (change)="inviteType = !inviteType" id="pending-invites">
+                            <label for="pending-invites">Pending Invites</label>
+                        </div>
+                    </div>
+                    <div class="invite-radio">
+                        <div class="input-text p-0">
+                            <input type="radio" name="invite" (change)="inviteType = !inviteType" id="accepted-invites">
+                            <label for="accepted-invites">Accepted Invites</label>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div *ngIf="inviteType">
+                        <ul class="invite-list" *ngIf="pending.length > 0" >
+                            <li *ngFor="let p of pending">
+                                <div>
+                                    <p>{{p.receiver.username}}</p>
+                                    <span>{{p.receiver.email}}</span>
+                                </div>
+                                <div>
+                                    <span>{{p.createdOn | date}}</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div *ngIf="!inviteType">
+                        <ul class="invite-list" *ngIf="accepted.length > 0">
+                            <li *ngFor="let p of accepted">
+                                <div>
+                                    <p>{{p.receiver.username}}</p>
+                                    <span>{{p.receiver.email}}</span>
+                                </div>
+                                <div>
+                                    <span>{{p.createdOn | date}}</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</main>
+<ng-template #loading>
+    <div class="w-full h-full grid place-content-center">
+        <loading-spinner [dim]="50" ></loading-spinner>
+    </div>
+</ng-template>

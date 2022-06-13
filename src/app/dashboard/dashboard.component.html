@@ -1,0 +1,57 @@
+<header class="px-4 py-2 border-b bg-white border-gray-200 fixed top-0 z-[200] w-full">
+  <div class="flex flex-row">
+    <div class="logo flex flex-row items-center cursor-pointer mr-4" [routerLink]="['/dashboard']" >
+      <img src="assets/alter-api.svg" alt="logo" width="30px">
+      <!-- <span class="mx-4 font-bold text-lg">Alter API</span> -->
+    </div>
+
+    <ul class="flex flex-row items-center mr-auto ">
+        <li class="text-slate-900	font-medium mx-4 outline-none"> <a [routerLink]="['/dashboard']" routerLinkActive="text-pm" [routerLinkActiveOptions]="{exact:true}" >Workspaces</a></li>
+        <!-- <li class="text-slate-900	font-medium mx-4 outline-none"> <a [routerLink]="['documentation','123']" routerLinkActive="text-pm" [routerLinkActiveOptions]="{exact:true}">Documents</a></li> -->
+        <li class="text-slate-900	font-medium mx-4 outline-none"> <a [routerLink]="['invites']" routerLinkActive="text-pm" >Invites</a></li>
+      </ul>
+
+      <ul class="flex flex-row items-center ml-auto">
+        <li class="mx-3" >
+          <button [routerLink]="['workspace','create']" class="btn-pm-sm" > New Workspace </button>
+        </li>
+        <li class="mx-3" >
+          <button class="btn-sc-sm" (click)="openDialog()" > Invite </button>
+        </li>
+        <li class="mx-3 inline-flex">
+          <button class="btn-wt-sm grid place-items-center h-30 p-1 relative" [matMenuTriggerFor]="notify">
+            <span class="notify-indicator" *ngIf="authSV.notifyIndicator" ></span>
+            <mat-icon class="text-gray-700"  >notifications_none</mat-icon>
+          </button>
+          <mat-menu #notify="matMenu" xPosition="before" class="menu-width">
+            <ul>
+              <li mat-menu-item *ngFor="let nt of notifications | async"
+                  class="notify-item" [ngClass]="{'new-notify': nt.status==='Unread'}"
+                  (click)="openNotify(nt)" >
+                <strong>{{nt.title}}</strong>
+                <p>{{nt.description}}</p>
+                <div class="sender">
+                  <span>{{nt.type}}</span>
+                  <span>{{nt.createdOn | date}}</span>
+                </div>
+              </li>
+            </ul>
+          </mat-menu>
+        </li>
+        <li class="ml-3">
+          <button class="btn-wt-sm p-1" [matMenuTriggerFor]="profile">
+            <div class="avatar"  >{{initials}}</div>
+          </button>
+          <mat-menu #profile="matMenu" >
+            <button mat-menu-item class="font-medium" [routerLink]="['profile']" >Profile</button>
+            <hr>
+            <button mat-menu-item class="font-medium text-red-600" (click)="logoutUser()" >Logout</button>
+          </mat-menu>
+        </li>
+      </ul>
+
+  </div>
+</header>
+<div style="height:calc(100% - 50px); margin-top: 48px;" >
+  <router-outlet></router-outlet>
+</div>
