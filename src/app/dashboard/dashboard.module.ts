@@ -15,6 +15,10 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { WkCreateComponent } from './wk-create/wk-create.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { InviteDialogComponent } from './invite-dialog/invite-dialog.component';
+import { LoadingComponent } from '../shared/loading/loading.component';
+import { SharedModule } from '../shared/shared.module';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -22,7 +26,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     DashboardComponent,
     ProfileComponent,
     MainComponent,
-    WkCreateComponent
+    WkCreateComponent,
+    InviteDialogComponent,
+    // LoadingComponent
   ],
   imports: [
     CommonModule,
@@ -35,6 +41,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     MatAutocompleteModule,
     MatChipsModule,
+    MatDialogModule,
+    SharedModule,
   ]
 })
 export class DashboardModule { }

@@ -1,0 +1,45 @@
+
+<div class="dialog-content">
+    <div class="flex flex-row justify-between">
+        <h2 mat-dialog-title >Add Request</h2>
+        <loading-spinner [dim]="30" *ngIf="loading" ></loading-spinner>
+        <button mat-dialog-close>
+          <mat-icon class="cursor-pointer" >close</mat-icon>
+        </button>
+    </div>
+    <div class="form">
+        <form (submit)="submit()" [formGroup]="reqAddForm" >
+            <div *ngIf="data.type ==='both'">
+                <div class="input-text" >
+                    <label>Choose any method</label>
+                    <div class="flex flex-row">
+                        <div class="flex flex-row  mr-10 items-center">
+                            <input  type="radio" class="w-[40px]" name="new" checked (change)="changeInput(true)" id="already-col">
+                            <label for="already-col" class="whitespace-nowrap text-sm font-normal m-0" >Use already created collections</label>
+                        </div>
+                        <div class="flex flex-row mr-10 items-center">
+                            <input type="radio" class="w-[40px]" name="new" (change)="changeInput(false)" id="new-col">
+                            <label for="new-col" class="whitespace-nowrap text-sm font-normal m-0">Create new collection</label>
+                        </div>
+                    </div>
+                </div>
+                    <div *ngIf="colMethod" class="input-text">
+                        <label for="collection-select">Select Collection</label>
+                        <select formControlName="colId" name="colId" id="collection-select">
+                            <option value="">None</option>
+                            <option *ngFor="let item of data.colList" [value]="item.id">{{item.name}}</option>
+                        </select>
+                    </div>
+                    <div *ngIf="!colMethod" class="input-text">
+                        <label for="request-name">Enter Collection name</label>
+                        <input type="text" formControlName="colName" name="colName" id="request-name">
+                    </div>
+            </div>
+            <div class="input-text">
+                <label for="request-name">Enter Request name</label>
+                <input type="text" name="reqName" formControlName="reqName" id="request-name">
+            </div>
+            <button type="submit" [disabled]="reqAddForm.invalid" class="btn-pm">Add Request</button>
+        </form>
+    </div>
+</div>

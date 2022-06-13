@@ -1,0 +1,179 @@
+<main class="w-10/12 py-4 mx-auto h-full">
+    <div class="doc" *ngIf="currWorkspace | async as wk;else loading">
+        <div class="doc-head">
+            <div>
+                <h1>{{wk.name}}</h1>
+                <p class="summary">{{wk.summary}}</p>
+                <div class="flex flex-row gap-10">
+                    <p> Collections : <b>{{wk.collectionCount}}</b> </p>
+                    <p> APIs : <b>{{wk.requestCount}}</b> </p>
+                </div>
+            </div>
+        </div>
+        <div class="doc-col" *ngFor="let col of colList">
+            <div class="doc-col-head">
+                <div>
+                    <h2 class="text-pm">{{col.name}} Collection</h2>
+                    <p> Requests : <b>{{col.request.length}}</b> </p>
+                </div>
+            </div>
+            <div class="doc-flex">
+                <div class="flex flex-row gap-[50px]">
+                    <div class="doc-req">
+                        <ng-container *ngFor="let req of col.request" >
+                            <div class="doc-req-container mt-5" [id]="req.reqId">
+                                <div class="doc-sec">
+                                    <h3><span class="post-method">{{req.method}}</span> {{req.name}}</h3>
+                                    <div class="req-url input-text m-0 p-0">
+                                        <input type="text" name="url" [value]="req.url" readonly>
+                                    </div>
+                                    
+                                </div>
+                                <div class="req-tab res">
+                                    <mat-tab-group animationDuration="10ms">
+                                        <mat-tab *ngIf="req.reqParams">
+                                            <ng-template mat-tab-label>
+                                                <p>Params</p>
+                                            </ng-template>
+                                            <div class="p-4 headers">
+                                                <ul>
+                                                    <li>
+                                                        <p class="font-medium bg-gray-50">Key</p>
+                                                        <p class="font-medium bg-gray-50">Value</p>
+                                                    </li>
+                                                    <li *ngFor="let h of req.reqParams" >
+                                                        <p>{{h.key}}</p>
+                                                        <p>{{h.value}}</p>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </mat-tab>
+                                        <mat-tab *ngIf="req.reqHeaders">
+                                            <ng-template mat-tab-label>
+                                                <p>Headers</p>
+                                            </ng-template>
+                                            <div class="p-4 headers">
+                                                <ul>
+                                                    <li>
+                                                        <p class="font-medium bg-gray-50">Key</p>
+                                                        <p class="font-medium bg-gray-50">Value</p>
+                                                    </li>
+                                                    <li *ngFor="let h of req.reqHeaders" >
+                                                        <p>{{h.key}}</p>
+                                                        <p>{{h.value}}</p>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </mat-tab>
+                                        <mat-tab *ngIf="req.reqBody">
+                                            <ng-template mat-tab-label>
+                                                <p>Body</p>
+                                            </ng-template>
+                                            <div class="body" >
+                                                <div class="tab-pane py-4 h-[150px] fade" id="req-body" role="tabpanel" aria-labelledby="req-body-tab" >
+                                                    <!-- monaco editor -->
+                                                    <ngx-monaco-editor
+                                                        class="textEditorContainer"
+                                                        [options] = "editorOptions"
+                                                        [(ngModel)]="req.reqBody"
+                                                        [ngModelOptions]="{standalone:true}"
+                                                    >
+                                                    </ngx-monaco-editor>
+                                                  </div>
+                                            </div>
+                                        </mat-tab>
+                                    </mat-tab-group>
+                                </div>
+                            </div>
+                            <div class="doc-res-container" *ngIf="req.response;else noRes">
+                                <div class="doc-res res doc-sec">
+                                    <h3>Response</h3>
+                                    <div class="req-tab">
+                                        <mat-tab-group animationDuration="10ms">
+                                            <mat-tab *ngIf="req.response?.resBody !== undefined">
+                                                <ng-template mat-tab-label>
+                                                    <p>Body</p>
+                                                </ng-template>
+                                                <div class="body">
+                                                    <div class="tab-pane py-4 h-[280px] fade " id="req-body" role="tabpanel" aria-labelledby="req-body-tab" >
+                                                        <!-- monaco editor -->
+                                                        <ngx-monaco-editor
+                                                            #resBody
+                                                            class="textEditorContainer"
+                                                            [options] = "editorOptions"
+                                                            [(ngModel)]="req.response.resBody"
+                                                            [ngModelOptions]="{standalone:true}"
+                                                        >
+                                                        </ngx-monaco-editor>
+                                                      </div>
+                                                </div>
+                                            </mat-tab>
+                                            <mat-tab *ngIf="req.response.resHeaders">
+                                                <ng-template mat-tab-label>
+                                                    <p>Headers</p>
+                                                </ng-template>
+                                                <div class="p-4 headers">
+                                                    <ul>
+                                                        <li>
+                                                            <p class="font-medium bg-gray-50">Key</p>
+                                                            <p class="font-medium bg-gray-50">Value</p>
+                                                        </li>
+                                                        <li *ngFor="let h of req.response.resHeaders" >
+                                                            <p>{{h.value}}</p>
+                                                            <p>{{h.key}}</p>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </mat-tab>
+                                            <mat-tab [disabled]="true" *ngIf="req.response.time" class="opacity-100">
+                                                <ng-template mat-tab-label >
+                                                    <div class="text-green-800 flex flex-row gap-4">
+                                                        <p class="font-medium"> {{req.response.status}} </p>
+                                                        <p class="font-medium"> {{req.response.time}} </p>
+                                                        <p class="font-medium"> {{req.response.size}} </p>
+                                                    </div>
+                                                </ng-template>
+                                            </mat-tab>
+                                        </mat-tab-group>
+                                    </div>
+                                </div>
+                            </div>
+                            <ng-template #noRes>
+                                <h3>No Response Saved</h3>
+                            </ng-template>
+                        </ng-container>
+                    </div>
+                    <div class="req-swap">
+                        <div class="req-swtab">
+                            <h4 class="req-swap-head mb-4">JUMP TO : </h4>
+                            <div class="input-text p-0 mb-4">
+                                <h4 for="">Collection</h4>
+                                <select value="1">
+                                    <option value="">Select collection</option>
+                                    <option *ngFor="let col of colList" [value]="col.colId">{{col.name}}</option>
+                                </select>
+                            </div>
+                            <!-- list of requests that can be swapped -->
+                            <div>
+                                <h4 class="mb-1">Request</h4>
+                                <ul>
+                                    <li *ngFor="let req of col.request" >
+                                       <p>
+                                           <a [routerLink]='"."' [fragment]="req.reqId">{{req.name}}</a>
+                                       </p> 
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <ng-template #loading>
+        <div class="w-full h-full grid place-content-center">
+            <loading-spinner [dim]="50" ></loading-spinner>
+        </div>
+    </ng-template>
+</main>

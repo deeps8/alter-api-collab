@@ -1,0 +1,56 @@
+<div class="dialog-content">
+  <div class="flex flex-row justify-between">
+    <h2 mat-dialog-title >Invite Team Members</h2>
+    <loading-spinner [dim]="30" *ngIf="loading" ></loading-spinner>
+    <button mat-dialog-close>
+      <mat-icon class="cursor-pointer" >close</mat-icon>
+    </button>
+  </div>
+    <div class="form">
+        <form [formGroup]="inviteForm" (submit)="submit()" >
+            <div class="input-text">
+                <label for="wk-list">Select Workspace</label>
+                <select name="wklist" id="wk-list" formControlName="workId">
+                    <option *ngFor="let wk of workList" [value]="wk.workId">{{wk.name}}</option>
+                </select>
+            </div>
+            <div class="input-text">
+                <label for="members">Invite Members <i class="text-gray-400 font-light pl-9"> ( use SPACE, COMMA, ENTER for adding the email )</i> </label>
+                <div class="invite-members">
+                  <div>
+                    <input
+                      #inviteInput
+                      name="invites"
+                      placeholder="example@xyz.com"
+                      formControlName="email"
+                      [matAutocomplete]="auto"
+                      [matChipInputFor]="chipList"
+                      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                      [matChipInputAddOnBlur]="false"
+                      (matChipInputTokenEnd)="add($event)"
+                    />
+                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                      <mat-option *ngFor="let f of userList | async" [value]="f.email">
+                        {{ f.email }}
+                      </mat-option>
+                    </mat-autocomplete>
+                    <div class="chips-list">
+                      <mat-chip-list #chipList>
+                        <mat-chip
+                          *ngFor="let us of users"
+                          [selectable]="true"
+                          [removable]="true"
+                          (removed)="remove(us.email)">
+                          {{us.email}}
+                          <mat-icon matChipRemove >cancel</mat-icon>
+                        </mat-chip>
+                      </mat-chip-list>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" [disabled]="!inviteForm.valid" class="btn-pm">Invite</button>
+        </form>
+    </div>
+    <!-- <button type="submit" [disabled]="reqAddForm.invalid" class="btn-pm">Add Request</button> -->
+</div>

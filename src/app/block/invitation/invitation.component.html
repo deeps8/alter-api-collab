@@ -1,0 +1,24 @@
+<div class="p-1">
+    <div class="flex flex-row justify-between">
+        <h2 matDialogTitle >Workspace Invitation</h2>
+        <loading-spinner [dim]="30" *ngIf="load" ></loading-spinner>
+        <mat-icon mat-dialog-close class="cursor-pointer" >close</mat-icon>
+    </div>
+    <div class="my-3" *ngIf="data;else loading">
+        <div class="inv-body">
+            <p>You {{ data.status==="Pending"?'got an':data.status}} Invitation from <b>{{data.sender.email}}</b> of <b>{{data.workspaceName}}</b></p>
+            <div class="flex flex-row justify-end opacity-60">
+                <span>{{data.createdOn | date}}</span>
+            </div>
+        </div>
+        <div class="inv-action" *ngIf="data.status==='Pending'" >
+            <div class="flex flex-row gap-6">
+                <button (click)="updateStatus('Accepted')" class="btn-pm" >Accept</button>
+                <button (click)="updateStatus('Rejected')" class="btn-red-outline" >Reject</button>
+            </div>
+        </div>
+    </div>
+    <ng-template #loading >
+        <loading-spinner [dim]="30" ></loading-spinner>
+    </ng-template>
+</div>

@@ -5,6 +5,7 @@ import { MainComponent } from './main/main.component';
 import { ProfileComponent } from './profile/profile.component';
 import { WkCreateComponent } from './wk-create/wk-create.component';
 import { AngularFireAuthGuard, redirectLoggedInTo, redirectUnauthorizedTo } from '@angular/fire/compat/auth-guard';
+import { DocComponent } from '../workspace/doc/doc.component';
 
 const unauthorized = ()=> redirectUnauthorizedTo(['auth/signin']);
 const authorized = ()=> redirectLoggedInTo(['dashboard']);
@@ -28,11 +29,21 @@ const routes: Routes = [
         component: ProfileComponent
       },
       {
-        path:'workspace',
+        path:'workspace/:wid',
         loadChildren: ()=> import('../workspace/workspace.module').then(m=>m.WorkspaceModule),
         canActivate:[AngularFireAuthGuard],
         data:{authGuardPipe: unauthorized }
       },
+      {
+        path:'invites',
+        loadChildren: ()=> import('./invites/invites.module').then(m=>m.InvitesModule),
+        canActivate:[AngularFireAuthGuard],
+        data:{authGuardPipe: unauthorized }
+      },
+      {
+          path:'documentation/:wid',
+          component: DocComponent
+      }
     ]
   }
 ];

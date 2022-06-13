@@ -17,7 +17,7 @@ export class AuthComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               public authSV: AuthService ) {
-
+    // console.log(authSV.getData);
     // signin form
     this.signinForm = new FormGroup({
       email : new FormControl('',[Validators.required,Validators.email]),
